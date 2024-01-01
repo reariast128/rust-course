@@ -11,4 +11,11 @@ fn main() {
     let parsed_age: u8 = age.trim().parse().unwrap();
 
     println!("OK. Entonces, tu nombre es: {}, y tu edad es de {}.", name, parsed_age);
+    if parsed_age >= 18{
+        println!("Hey! Eres mayor de edad.")
+    } else if parsed_age == 17 || parsed_age == 16{
+        println!("Ya casi eres mayor!")
+    } else {
+        println!("Hmmmm, eres menor de edad.")
+    }
 }
