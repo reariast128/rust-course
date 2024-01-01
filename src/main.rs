@@ -1,10 +1,14 @@
 fn main() {
-    let age: u8 = 18;
-    let _unused: u8;
-    let name: &str = "Creeping";
-    let mut money: u8 = 50;
-    println!("Hola soy {} y tengo {} años, y {} pesos", name, age, money);
+    println!("Por favor, introduce tu nombre: ");
+    let mut name: String = String::new();
+    std::io::stdin().read_line(&mut name).unwrap();
+    name = name.trim().to_string();
 
-    money += 30;
-    println!("Ahora tengo {} pesos", money)
+    println!("Ahora, introduce tu edad");
+    let mut age: String = String::new();
+    std::io::stdin().read_line(&mut age).unwrap();
+
+    let parsed_age: u8 = age.trim().parse().unwrap();
+
+    println!("OK. Entonces, tu nombre es: {}, y tu edad es de {}.", name, parsed_age);
 }
