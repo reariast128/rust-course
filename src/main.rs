@@ -1,22 +1,23 @@
 use csv::{ ReaderBuilder, StringRecord };
-use std::collections::hash_map;
+use std::collections::HashMap;
 use std::fs;
 
 const FILENAME: &str = "history.csv";
+const FIRST_TAG: &str = "INICIO";
 
-fn read_game(mut game_content: csv::Reader<&[u8]>) {
+fn read_game_content(mut game_content: csv::Reader<&[u8]>) {
     /* This function prints the CSV content. */
     /*for record in game_content.records() {
         println!("Texto: {}", record.unwrap().get(2).unwrap().trim());
     }*/
 
-    let mut facts: Vec<HistoryFact> = vec![];
+    let mut facts: HashMap<String, HistoryFact> = HashMap::new();
     for record in game_content.records() {
         let record = record.unwrap();
         let fact = HistoryFact::new(record);
 
         println!("{:?}", fact);
-        facts.push(fact);
+        facts.insert(fact.tag.clone(), fact);
     }
 }
 
@@ -50,7 +51,9 @@ fn main() {
             reader_builder = ReaderBuilder::new()
                 .delimiter(b';')
                 .from_reader(file_reader.as_bytes());
-            read_game(reader_builder);
+
+            // Then, set the game content into a HashMap.
+            read_game_content(reader_builder);
         }
         Err(error) => {
             println!("Ha ocurrido un error: {}", error);
